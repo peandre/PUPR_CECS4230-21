@@ -2,6 +2,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <malloc/malloc.h> // Malloc Dynamic Mem
+#include <signal.h> // SIGKILL
+
+const int MAX_COUNT = 200;
+
 int main (int argc, char *argv[])
 {
 	
@@ -24,12 +29,14 @@ int main (int argc, char *argv[])
 		}
 
 		printf("All %d processes have been created\n\n", proc);
+        
 	/*when the argumentes kill and -proc are entered it should run the function to kill the process*/
 	}else if ((strcmp(argv[1],"kill")==0) && (strcmp(argv[2],"-proc")==0)&&(argc==4))
 	{
 		/*pid is holding the pid of the process the user wants to kill*/
 		int pid = atoi(argv[3]);
 		printf("\nKilling PID %d\n", pid);
+        kill(pid, SIGKILL);//Kill the the process user select
 		printf("PID %d has been killed\n\n", pid);
 	/*If the user enters the argument help, it should display all the commands that can be entered*/
 	}else if ((strcmp(argv[1],"help")==0))
